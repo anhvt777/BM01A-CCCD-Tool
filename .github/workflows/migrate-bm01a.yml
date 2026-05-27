@@ -1,5 +1,10 @@
 name: Migrate BM01A files
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/migrate-bm01a.yml'
+      - '.github/workflows/trigger-migrate.txt'
 permissions:
   contents: write
 jobs:
@@ -11,6 +16,7 @@ jobs:
           set -e
           BASE="https://raw.githubusercontent.com/anhvt777/Kehoachtuan/main"
           mkdir -p bm01a-cccd bm01a-cccd-ocr bm01a-cccd-photo
+          curl -fsSL "$BASE/bm01a-cccd/index.html" -o bm01a-cccd/index.html
           curl -fsSL "$BASE/bm01a-cccd/v12-jsqr.html" -o bm01a-cccd/v12-jsqr.html
           curl -fsSL "$BASE/bm01a-cccd/v19-calibration.js" -o bm01a-cccd/v19-calibration.js
           curl -fsSL "$BASE/bm01a-cccd/scan-fix-v21.js" -o bm01a-cccd/scan-fix-v21.js
